@@ -32,10 +32,10 @@ export default function ListMessages() {
 				async (payload) => {
 					if (!optimisticIds.includes(payload.new.id)) {
 						const { error, data } = await supabase
-							.from("users")
-							.select("*")
-							.eq("id", payload.new.send_by)
-							.single();
+						.from("users")
+						.select("*")
+						.eq("id", payload.new.send_by)
+						.maybeSingle(); // plus safe
 						if (error) {
 							toast.error(error.message);
 						} else {
